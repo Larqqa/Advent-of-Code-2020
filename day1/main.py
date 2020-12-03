@@ -1,21 +1,56 @@
 import time
-from part1 import find_sum_of_two_in_array
-from part2 import find_sum_of_three_in_array
 
-# Get input
+def split_array(array):
+  half = len(array) // 2
+  return array[:half], array[half:]
+
+def binary_search_array(number, remainder, array):
+  if len(array) <= 1:
+    return array[0]
+
+  b, c = split_array(array)
+
+  if b[-1] >= remainder:
+    return binary_search_array(number, remainder, b)
+  elif c[0] <= remainder:
+    return binary_search_array(number, remainder, c)
+
+
+def find_sum_of_two_in_array(array, value):
+  for number in array:
+    remainder = value - number
+
+    found_value = binary_search_array(number, remainder, array)
+
+    if found_value and found_value == remainder:
+      return number, found_value
+
+  return 'No matching sum for value found'
+
+def find_sum_of_three_in_array(array, value):
+  for number in array:
+    for number2 in array:
+
+      remainder = value - (number + number2)
+
+      found_value = binary_search_array(number, remainder, array)
+
+      if found_value and found_value == remainder:
+        return number, number2, found_value
+
+  return 'No matching sum for value found'
+
 def get_input_list(file_name):
   try:
     with open(file_name) as f:
       input_list = []
       for line in f:
         input_list.append(int(line))
-      
+
       return input_list
   except:
     print('Input should only contain numbers')
     quit()
-
-# reports = [1721, 979, 366, 299, 675, 1456]
 
 # PART 1
 start = time.perf_counter()
