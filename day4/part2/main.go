@@ -10,12 +10,6 @@ import (
 	"time"
 )
 
-func handleErrors(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
 // Height is used to make a hight
 type Height struct {
 	metric string
@@ -58,16 +52,6 @@ func main() {
 
 	elapsed := time.Since(start)
 	log.Printf("Time: %s", elapsed)
-}
-
-func convertStringToInt(str string) int {
-	if str == "" {
-		return 0
-	}
-
-	i, err := strconv.Atoi(str)
-	handleErrors(err)
-	return i
 }
 
 func makePassport(content []string) Passport {
@@ -128,10 +112,26 @@ func makePassport(content []string) Passport {
 	return p
 }
 
-func validatePID(pid string) bool {
-	Regex := regexp.MustCompile("[0-9]+")
-	if len(pid) == 9 && Regex.Match([]byte(pid)) {
+func validatePassport(passport Passport) bool {
+	if passport.byr >= 1920 && passport.byr <= 2002 &&
+		passport.iyr >= 2010 && passport.iyr <= 2020 &&
+		passport.eyr >= 2020 && passport.eyr <= 2030 &&
+		validateEyeColor(passport.ecl) &&
+		validatePID(passport.pid) &&
+		validateHairColor(passport.hcl) &&
+		validateHeight(passport.hgt.metric, passport.hgt.amount) {
 		return true
+	}
+
+	return false
+}
+
+func validatePID(pid string) bool {
+	if len(pid) == 9 {
+		Regex := regexp.MustCompile("[0-9]")
+		if Regex.Match([]byte(pid)) {
+			return true
+		}
 	}
 
 	return false
@@ -152,21 +152,10 @@ func validateEyeColor(color string) bool {
 }
 
 func validateHairColor(color string) bool {
-	Regex := regexp.MustCompile("^#[0-9a-f]{6}$")
-	if Regex.Match([]byte(color)) {
-		return true
-	}
-
-	return false
-}
-
-func validateHeight(height Height) bool {
-	if height.metric == "cm" {
-		if height.amount >= 150 && height.amount <= 193 {
-			return true
-		}
-	} else if height.metric == "in" {
-		if height.amount >= 59 && height.amount <= 76 {
+	if len(color) == 7 && string(color[0]) == "#" {
+		Regex := regexp.MustCompile("[0-9a-f]")
+		s := []rune(color)
+		if Regex.Match([]byte(string(s[1:]))) {
 			return true
 		}
 	}
@@ -174,17 +163,32 @@ func validateHeight(height Height) bool {
 	return false
 }
 
-func validatePassport(passport Passport) bool {
-	if passport.byr >= 1920 && passport.byr <= 2002 &&
-		passport.iyr >= 2010 && passport.iyr <= 2020 &&
-		passport.eyr >= 2020 && passport.eyr <= 2030 &&
-		validateEyeColor(passport.ecl) &&
-		validatePID(passport.pid) &&
-		validateHairColor(passport.hcl) &&
-		validateHeight(passport.hgt) {
-		return true
+func validateHeight(metric string, amount int) bool {
+	if metric == "cm" {
+		if amount >= 150 && amount <= 193 {
+			return true
+		}
+	} else if metric == "in" {
+		if amount >= 59 && amount <= 76 {
+			return true
+		}
 	}
 
-	// fmt.Println(passport)
 	return false
+}
+
+func convertStringToInt(str string) int {
+	if str == "" {
+		return 0
+	}
+
+	i, err := strconv.Atoi(str)
+	handleErrors(err)
+	return i
+}
+
+func handleErrors(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
 }
