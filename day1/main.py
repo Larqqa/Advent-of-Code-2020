@@ -62,7 +62,7 @@ found1 = find_sum_of_two_in_array(reports, 2020)
 print(found1[0] * found1[1])
 
 stop = time.perf_counter()
-print(stop - start)
+print((stop - start) * 1000)
 
 # PART 2
 start = time.perf_counter()
@@ -74,4 +74,4 @@ found2 = find_sum_of_three_in_array(reports, 2020)
 print(found2[0] * found2[1] *found2[2])
 
 stop = time.perf_counter()
-print(stop - start)
+print((stop - start) * 1000)

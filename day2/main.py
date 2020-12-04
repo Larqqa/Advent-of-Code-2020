@@ -27,9 +27,13 @@ def count_valid_passwords(file_name, checker_function):
 
     for line in f:
       arr = line.split(' ')
+      arr[1] = arr[1].split(':')[0]
+      arr[2] = arr[2].split('\n')[0]
       num = arr[0].split('-')
+      num[0] = int(num[0])
+      num[1] = int(num[1])
 
-      if checker_function(int(num[0]), int(num[1]), arr[1].split(':')[0], arr[2].split('\n')[0]):
+      if checker_function(num[0], num[1], arr[1], arr[2]):
         valid_count += 1
 
     return valid_count
@@ -37,9 +41,9 @@ def count_valid_passwords(file_name, checker_function):
 start = time.perf_counter()
 print(count_valid_passwords('input.txt', check_password_part1))
 stop = time.perf_counter()
-print(stop - start)
+print((stop - start) * 1000)
 
 start = time.perf_counter()
 print(count_valid_passwords('input.txt', check_password_part2))
 stop = time.perf_counter()
-print(stop - start)
+print((stop - start) * 1000)
