@@ -29,7 +29,7 @@ def find_sum_of_two_in_array(array, value):
 
 def find_sum_of_three_in_array(array, value):
   for number in array:
-    for number2 in array:
+    for number2 in array:E
 
       remainder = value - (number + number2)
 
