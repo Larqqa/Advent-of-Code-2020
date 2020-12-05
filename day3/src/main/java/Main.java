@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Main {
     private static Integer width = 0;
@@ -25,8 +26,9 @@ public class Main {
     private static final StringBuffer stringBuffer = new StringBuffer();
 
     public static void main(String[] args) throws IOException {
-        String str;
-        while((str = inputFile.getReader().readLine())!= null){
+
+        String str = "";
+        while(Objects.nonNull(str = inputFile.getReader().readLine())){
             width = str.length();
             stringBuffer.append(str);
         }
@@ -40,7 +42,7 @@ public class Main {
         System.out.println(multiplier);
     }
 
-    private static Long count_trees(String[] map, Integer offsetX, Integer offsetY) {
+    private static Long count_trees(final String[] map, final Integer offsetX, final Integer offsetY) {
         int dots = 0;
         int trees = 0;
         int x = 0;
@@ -57,12 +59,13 @@ public class Main {
             }
 
             x += offsetX;
+
             if (x >= width) {
                 x = x - width;
             }
         }
 
-        System.out.printf("%s, %s\n", dots, trees);
+        // System.out.printf("%s, %s\n", dots, trees);
         return (long) trees;
     }
 }

@@ -1,7 +1,7 @@
 use std::fs::File;
 use std::io::{prelude::*, BufReader};
 use std::path::Path;
-use std::time::Instant;
+use std::env;
 
 fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
     let file = File::open(filename).expect("no such file");
@@ -42,11 +42,10 @@ fn check_password2(min: usize, max: usize, character: char, password: &str) -> b
     }
 }
 
-fn main() {
-    let now = Instant::now();
-
+fn part1() -> i32 {
     let lines = lines_from_file("input.txt");
     let mut count = 0;
+
     for line in lines {
         let char_vec: Vec<&str> = line.split(' ').collect();
         let limits: Vec<&str>= char_vec[0].split('-').collect();
@@ -60,14 +59,13 @@ fn main() {
             count += 1;
         }
     }
-    println!("{}", count);
+    return count;
+}
 
-    println!("{:.2?}", now.elapsed());
-
-    let now = Instant::now();
-
+fn part2() -> i32 {
     let lines = lines_from_file("input.txt");
     let mut count = 0;
+
     for line in lines {
         let char_vec: Vec<&str> = line.split(' ').collect();
         let limits: Vec<&str>= char_vec[0].split('-').collect();
@@ -81,7 +79,17 @@ fn main() {
             count += 1;
         }
     }
-    println!("{}", count);
+    return count;
+}
 
-    println!("{:.2?}", now.elapsed());
+fn main() {
+    let args: Vec<String> = env::args().collect();
+
+    if !args.get(1).is_none() && args[1] == "part1" {
+        println!("{:?}", part1());
+    } else if !args.get(1).is_none() && args[1] == "part2" {
+        println!("{:?}", part2());
+    } else {
+        println!("Invalid argument!");
+    }
 }

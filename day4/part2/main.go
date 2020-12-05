@@ -7,7 +7,6 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
-	"time"
 )
 
 // Height is used to make a hight
@@ -29,8 +28,6 @@ type Passport struct {
 }
 
 func main() {
-	start := time.Now()
-
 	input, err := ioutil.ReadFile("input.txt")
 	handleErrors(err)
 
@@ -49,9 +46,6 @@ func main() {
 	}
 
 	fmt.Println(count)
-
-	elapsed := time.Since(start)
-	log.Printf("Time: %s", elapsed)
 }
 
 func makePassport(content []string) Passport {
