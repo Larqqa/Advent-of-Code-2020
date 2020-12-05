@@ -69,5 +69,5 @@ def part2()
   end
 end
 
-# part1()
-part2()
+part1()
+# part2()
