@@ -45,19 +45,18 @@ fn check_password2(min: usize, max: usize, character: char, password: &str) -> b
 fn main() {
     let now = Instant::now();
 
-    let lines = lines_from_file("../input.txt");
+    let lines = lines_from_file("input.txt");
     let mut count = 0;
     for line in lines {
         let char_vec: Vec<&str> = line.split(' ').collect();
-
-        let character = char_vec[1].replace(":", "").chars().next().unwrap();
-        let password = char_vec[2];
-
         let limits: Vec<&str>= char_vec[0].split('-').collect();
-        let min: usize = limits[0].parse::<usize>().unwrap();
-        let max: usize = limits[1].parse::<usize>().unwrap();
 
-        if check_password(min, max, character, password) {
+        if check_password(
+            limits[0].parse::<usize>().unwrap(),
+            limits[1].parse::<usize>().unwrap(),
+            char_vec[1].replace(":", "").chars().next().unwrap(),
+            char_vec[2]
+        ) {
             count += 1;
         }
     }
@@ -67,19 +66,18 @@ fn main() {
 
     let now = Instant::now();
 
-    let lines = lines_from_file("../input.txt");
+    let lines = lines_from_file("input.txt");
     let mut count = 0;
     for line in lines {
         let char_vec: Vec<&str> = line.split(' ').collect();
-
-        let password = char_vec[2];
-        let character = char_vec[1].replace(":", "").chars().next().unwrap();
-
         let limits: Vec<&str>= char_vec[0].split('-').collect();
-        let min: usize = limits[0].parse::<usize>().unwrap();
-        let max: usize = limits[1].parse::<usize>().unwrap();
 
-        if check_password2(min, max, character, password) {
+        if check_password2(
+            limits[0].parse::<usize>().unwrap(),
+            limits[1].parse::<usize>().unwrap(),
+            char_vec[1].replace(":", "").chars().next().unwrap(),
+            char_vec[2]
+        ) {
             count += 1;
         }
     }
