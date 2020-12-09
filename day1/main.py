@@ -29,8 +29,7 @@ def find_sum_of_two_in_array(array, value):
 
 def find_sum_of_three_in_array(array, value):
   for number in array:
-    for number2 in array:E
-
+    for number2 in array:
       remainder = value - (number + number2)
 
       found_value = binary_search_array(number, remainder, array)
@@ -53,25 +52,15 @@ def get_input_list(file_name):
     quit()
 
 # PART 1
-start = time.perf_counter()
-
 reports = get_input_list('input.txt')
 reports.sort()
 
 found1 = find_sum_of_two_in_array(reports, 2020)
 print(found1[0] * found1[1])
 
-stop = time.perf_counter()
-print((stop - start) * 1000)
-
 # PART 2
-start = time.perf_counter()
-
 reports = get_input_list('input.txt')
 reports.sort()
 
 found2 = find_sum_of_three_in_array(reports, 2020)
 print(found2[0] * found2[1] *found2[2])
-
-stop = time.perf_counter()
-print((stop - start) * 1000)

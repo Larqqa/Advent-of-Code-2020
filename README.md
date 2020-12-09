@@ -9,8 +9,8 @@
 * ✔️ Day 5: Ruby
 * ✔️ Day 6: Elixir
 * ✔️ Day 7: C#
-* Day 8: Haskell
-* Day 9: Kotlin
+* ✔️ Day 8: Haskell
+* ✔️ Day 9: Kotlin
 * Day 10: C++
 * Day 11: Clojure
 * Day 12: Swift

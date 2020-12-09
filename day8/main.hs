@@ -45,7 +45,7 @@ part2 instruct history position accumulator =
         else
             part2 instruct newHist (position + 1) accumulator
 
-replaceAtIndex :: Int -> a -> [a] -> [a]    
+replaceAtIndex :: Int -> a -> [a] -> [a]
 replaceAtIndex i x xs = take i xs ++ [x] ++ drop (i+1) xs
 
 replaceOperation :: [(String, Int)] -> Int -> [(String, Int)]
@@ -57,7 +57,7 @@ replaceOperation instruct index = do
         replaceAtIndex index ("jmp", b) instruct
     else
         instruct
-        
+
 doPart2 :: [(String, Int)] -> Int -> Int
 doPart2 instruct i = do
     let newIns = replaceOperation instruct i
