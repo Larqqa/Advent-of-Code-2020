@@ -16,7 +16,7 @@ part1 :: [(String, Int)] -> [Int] -> Int -> Int -> Int
 part1 instruct history position accumulator
     | position `elem` history = accumulator
     | otherwise = do
-        let newHist = history ++ [position]
+        let newHist = position : history
             (op, arg) = instruct !! position
         case (op, arg) of
             ("jmp", _) -> part1 instruct newHist (position + arg) accumulator
@@ -28,7 +28,7 @@ part2 instruct history position accumulator
     | position >= length instruct = accumulator
     | position `elem` history = 0
     | otherwise = do
-        let newHist = history ++ [position]
+        let newHist = position : history
             (op, arg) = instruct !! position
         case (op, arg) of
             ("jmp", _) -> part2 instruct newHist (position + arg) accumulator
