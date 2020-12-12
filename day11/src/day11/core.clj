@@ -2,7 +2,6 @@
   (:gen-class))
 
 (defn checkAdjacent [vec, width, height]
-  ;; vec[x + width * y]
   (map-indexed (fn [i v]
     (let [emptySeat (atom 0)
           occupiedSeat (atom 0)
@@ -10,8 +9,6 @@
 
       (def x (rem i width))
       (def y (int (/ i width)))
-
-      ; (print [x y])
 
       (if (and (>= (- y 1) 0) (>= (- x 1) 0) )
         (if (= (vec (+ (* width (- y 1)) (- x 1))) "L" )
@@ -69,11 +66,12 @@
               (swap! occupiedSeat #(+ %1 1))
               (swap! floor #(+ %1 1)))) false)
 
-      ; (print [v @emptySeat @occupiedSeat])
-
-      (if (= v ".") "."
-        (if (and (= @occupiedSeat 0) (= v "L")) "#"
-          (if (and (> @occupiedSeat 3) (= v "#")) "L" v)))
+      (if (= v ".")
+        "."
+        (if (and (= @occupiedSeat 0) (= v "L"))
+          "#"
+          (if (and (> @occupiedSeat 3) (= v "#"))
+            "L" v)))
 
     )) vec))
 
@@ -85,7 +83,6 @@
 
 
 (defn checkDirectional [vec, width, height]
-  ;; vec[x + width * y]
   (map-indexed (fn [i v]
     (let [emptySeat (atom 0)
           occupiedSeat (atom 0)
@@ -93,8 +90,6 @@
 
       (def x (rem i width))
       (def y (int (/ i width)))
-
-      ; (print [x y])
 
       (loop [i 1]
         (if (and (and (>= (- y i) 0) (>= (- x i) 0)) (not= (vec (+ (* width y) x)) "."))
@@ -195,11 +190,12 @@
               (swap! occupiedSeat #(+ %1 1))
               (recur (inc i)))))))
 
-      ; (print [v @emptySeat @occupiedSeat])
-
-      (if (= v ".") "."
-        (if (and (= @occupiedSeat 0) (= v "L")) "#"
-          (if (and (> @occupiedSeat 4) (= v "#")) "L" v)))
+      (if (= v ".")
+        "."
+        (if (and (= @occupiedSeat 0) (= v "L"))
+          "#"
+          (if (and (> @occupiedSeat 4) (= v "#"))
+            "L" v)))
 
     )) vec))
 
