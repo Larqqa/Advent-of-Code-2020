@@ -13,7 +13,7 @@ def find_sum_of_three_in_array(array, value):
   return 'No matching sum for value found'
 
 # PART 2
-reports = get_input_list('input')
+reports = get_input_list('resources/training')
 reports.sort()
 
 found2 = find_sum_of_three_in_array(reports, 2020)

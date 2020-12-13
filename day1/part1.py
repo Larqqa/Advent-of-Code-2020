@@ -1,26 +1,29 @@
 from lib import get_input_list, split_array, binary_search_array
 
-def find_sum_of_two_in_array(array, split, value):
+def find_in_split(split, array, delim, value):
+  rem = value - split[delim]
+  found_value = binary_search_array(rem, array)
+
+  if found_value == rem:
+    return split[delim], found_value
+  else:
+    return find_sum_of_two_in_array(split, array, value)
+
+def find_sum_of_two_in_array(split, array, value):
   if len(split) <= 1:
-    return split[0]
+    return
 
-  b, c = split_array(split)
+  a, b = split_array(split)
 
-  bRem = value - b[-1]
-  b_found_value = binary_search_array(bRem, array)
-  if b_found_value == bRem:
-    return b[-1], b_found_value
-  else:
-    return find_sum_of_two_in_array(array, b, value)
+  aF = find_in_split(a, array, -1, value)
+  bF = find_in_split(b, array, 0, value)
 
-  cRem = value - c[0]
-  c_found_value = binary_search_array(cRem, array)
-  if c_found_value == cRem:
-    return c[0], c_found_value
-  else:
-    return find_sum_of_two_in_array(array, c, value)
+  if (aF):
+    return aF
+  elif (bF):
+    return bF
 
-reports = get_input_list('training')
+reports = get_input_list('resources/input')
 reports.sort()
 
 found1 = find_sum_of_two_in_array(reports, reports, 2020)
