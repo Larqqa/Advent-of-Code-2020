@@ -9,7 +9,7 @@ timestamp=${arr[0]}
 unset arr[0]
 
 sum=0
-bus=
+bus_number=
 smallest=
 
 for i in ${arr[@]}; do
@@ -18,10 +18,10 @@ for i in ${arr[@]}; do
     comb=$(($i * $dif))
 
     if [[ ! $smallest || $comb < $smallest ]]; then
-      bus=$i
+      bus_number=$i
       smallest=$comb
     fi
   fi
 done
 
-echo $(( $bus * ($smallest - $timestamp) ))
+echo $(( $bus_number * ($smallest - $timestamp) ))

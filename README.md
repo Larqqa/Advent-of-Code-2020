@@ -14,7 +14,7 @@
 * ✔️ Day 10: C++
 * ✔️ Day 11: Clojure
 * ✔️ Day 12: OCaml
-* Day 13: bash
+* ✔️ Day 13: bash
 * Day 14: C
 * Day 15: Lua
 * Day 16: Perl
