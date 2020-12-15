@@ -2,8 +2,8 @@
 
 ## I'm planning on doing every day with a new language, to try some new things out and test my skills.
 
-* ✔️ Day 1: Python
-* ✔️ Day 2: Python (Original, redo in Rust)
+* ✔️ Day 1: C
+* ✔️ Day 2: Rust
 * ✔️ Day 3: Java
 * ✔️ Day 4: Go
 * ✔️ Day 5: Ruby
@@ -15,8 +15,8 @@
 * ✔️ Day 11: Clojure
 * ✔️ Day 12: OCaml
 * ✔️ Day 13: bash
-* Day 14: C
-* Day 15: Lua
+* ✔️ Day 14: Python
+* ✔️ Day 15: Lua
 * Day 16: Perl
 * Day 17: TypeScript
 * Day 18: Common Lisp
