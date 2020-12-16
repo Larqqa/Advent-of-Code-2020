@@ -1,4 +1,4 @@
-my $fh = slurp "resources/input2";
+my $fh = slurp "resources/input";
 my @r = $fh.split("\n\n") :skip-empty;
 
 my %rules = @r[0]
@@ -11,110 +11,89 @@ my %rules = @r[0]
         $s.split("-");
       });
 
-    %(@tmp[0] => (@tmp[1], 0));
+    %(@tmp[0] => %(
+      "low" => @tmp[1][0],
+      "high" => @tmp[1][1]
+    ));
   });
 
 my @ticket = @r[1].split("\n")[1]
   .split(",");
 
-my @nearby = @r[2].split(":")[1]
+my %sorted;
+@r[2].split(":")[1]
   .split("\n") :skip-empty
   .map(-> $row { $row.split("\n") })
-  .map(-> $row { $row.split(",") });
+  .map(-> $row {
+    my @tmp = $row.split(",");
+    my $valid = 1;
 
-my @accepted;
-my %sorted;
-my $checked = 0;
-my $valid = 0;
-for @nearby -> @single {
-  $checked = 1;
+    # Validate that all rules apply
+    for @tmp -> $t {
+      my $check = 0;
 
-  for @single -> $t {
-    $valid = 0;
-
-    for %rules.kv -> $k, @v {
-      if ($t >= @v[0][0][0] and $t <= @v[0][0][1])
-      or ($t >= @v[0][1][0] and $t <= @v[0][1][1]) {
-        $valid = 1;
-        last;
+      for %rules.kv -> $k, %v {
+        if ($t >= %v{"low"}[0] and $t <= %v{"low"}[1])
+        or ($t >= %v{"high"}[0] and $t <= %v{"high"}[1]) {
+          $check = 1;
+        }
       }
+
+      if $check == 0 { $valid = 0 }
     }
 
-    if $valid == 0 {
-      $checked = 0;
-      last;
-    }
-  }
-
-  if $checked == 1 {
-    @accepted.push(@single);
-    for @single.kv -> $i, $s {
-
-      if %sorted{$i} {
-        %sorted{$i}.push($s)
-      } else {
-        %sorted{$i} = [$s]
+    if $valid == 1 {
+      for @tmp.kv -> $i, $s {
+        if %sorted{$i} {
+          %sorted{$i}.push($s)
+        } else {
+          %sorted{$i} = [$s]
+        }
       }
-    };
-  }
-}
-
-#say %rules;
-#say %sorted;
-#say @accepted;
+    }
+  });
 
 my %decoded;
+my %ticket;
+my $output;
 while %rules {
   for %sorted.kv -> $i, @l {
     my $sum = 0;
     my $name;
     my $index;
 
-    for %rules.kv -> $k, @v {
-      $checked = 1;
+    for %rules.kv -> $k, %v {
+      my $check = 1;
 
       for @l -> $t {
-        $valid = 0;
+        my $valid = 0;
 
-        if ($t >= @v[0][0][0] and $t <= @v[0][0][1])
-        or ($t >= @v[0][1][0] and $t <= @v[0][1][1]) {
+        if ($t >= %v{"low"}[0] and $t <= %v{"low"}[1])
+        or ($t >= %v{"high"}[0] and $t <= %v{"high"}[1]) {
           $valid = 1;
         }
 
-        if $valid == 0 { $checked = 0 }
+        if $valid == 0 { $check = 0 }
       }
 
-      if $checked == 1 {
-        $sum += $checked;
+      if $check == 1 {
+        $sum += $check;
         $name = $k;
         $index = $i;
-        #say "c: {$checked } i: {$i} k: {$k} l: {@l}";
       }
     }
 
-    #say "sum: {$sum}";
-
     if $sum == 1 {
-      %decoded{$name} = $index;
-      %rules{$name}:delete;
-      #say "sum: {$sum}";
+      #%decoded{$name} = $index;
+      %sorted{$index} :delete;
+      %rules{$name} :delete;
+
+      #%ticket{$name} = @ticket[$index];
+      if $name.contains('departure') { $output *= @ticket[$index] }
     }
   }
-  #say "";
 }
 
 #say %decoded;
-
-my %ticket;
-my $sum = 1;
-for %decoded.kv -> $k, $v {
-  %ticket{$k} = @ticket[$v];
-
-  if $k.contains('departure') {
-    #say "{$k} {@ticket[$v]}";
-    $sum = $sum * @ticket[$v];
-  }
-}
-
-say %ticket;
-say $sum;
+#say %ticket;
+say $output;
