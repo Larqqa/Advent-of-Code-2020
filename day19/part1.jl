@@ -25,24 +25,17 @@ end
 function makeList(list)
   str = "";
 
-  if isa(list[1], Array)
-    left = makeList(list[1]);
-    right = makeList(list[2]);
+  for i in list
+    next = hash[string(i)];
 
-    if left != nothing && right != nothing
-      return "(" * right * "|" * left * ")";
+    if next == "a" || next == "b"
+      str = str * next;
+    else
+      right = makeList(next[1]);
+      left = makeList(next[2]);
+      str = str * "(" * right * "|" * left * ")";
     end
-  else
-    for i in list
-      next = hash[string(i)];
 
-      if next == "a" || next == "b"
-        str = str * next;
-      else
-        return makeList(next);
-      end
-
-    end
   end
 
   if str != ""
@@ -58,25 +51,3 @@ for i in hash["0"]
   println(yeet);
 end
 # a(((aa|bb)(ab|ba))|((ab|ba)(aa|bb)))b
-
-
-
-# function traverse(msg, tree)
-#   if length(msg) == 0
-#     return true
-#   end
-
-#   for leaf in tree
-#     if leaf == 'a' || leaf == 'b'
-#       if SubString(msg, 1, 2) == leaf
-#         traverse(chop(msg, head = 1), hash[leaf[2]]);
-#       end
-#     elseif isa(leaf, Array)
-#       return [traverse(msg, hash[leaf[1]]), traverse(msg, hash[leaf[2]])];
-#     else
-#       return traverse(msg, hash[leaf]);
-#     end
-#   end
-# end
-
-# println(traverse(messages[1], hash["0"]));

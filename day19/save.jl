@@ -174,3 +174,24 @@ end
 
 makeList(hash);
 # println(dict)
+
+
+# function traverse(msg, tree)
+#   if length(msg) == 0
+#     return true
+#   end
+
+#   for leaf in tree
+#     if leaf == 'a' || leaf == 'b'
+#       if SubString(msg, 1, 2) == leaf
+#         traverse(chop(msg, head = 1), hash[leaf[2]]);
+#       end
+#     elseif isa(leaf, Array)
+#       return [traverse(msg, hash[leaf[1]]), traverse(msg, hash[leaf[2]])];
+#     else
+#       return traverse(msg, hash[leaf]);
+#     end
+#   end
+# end
+
+# println(traverse(messages[1], hash["0"]));
