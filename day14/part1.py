@@ -22,6 +22,7 @@ def part1(reports):
           masked = masked + value[i:i + 1]
 
       memory[address] = binToInt(masked)
+      print(binToInt(masked))
 
   sum = 0
   for key, value in memory.items():

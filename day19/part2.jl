@@ -33,10 +33,17 @@ function buildRegex(leaf, tree)
   return regExp;
 end
 
-function countMatches(messages, tree)
-  rule = Regex("^$(buildRegex(tree["0"], tree))\$", "x");
+function countMatches(tree, messages)
+  tree["8"] = "42 | 42 8"
+  tree["11"] = "42 31 | 42 11 31"
+  rx42 = buildRegex(tree["42"], tree)
+  rx31 = buildRegex(tree["31"], tree)
+
+  builder(i) = "(($rx42){$i}($rx31){$i})";
+  rule = Regex("^(($rx42)+($(builder(1))|$(builder(2))|$(builder(3))|$(builder(4))))\$", "x");
+
   return count(!isnothing, match.(rule, messages));
 end
 
 (tree, messages) = getInput("resources/input");
-println(countMatches(messages, tree));
+println(countMatches(tree, messages));
