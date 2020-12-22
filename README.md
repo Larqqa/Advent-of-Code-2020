@@ -21,7 +21,7 @@
 * ✔️ Day 17: TypeScript
 * ✔️ Day 18: Elisp
 * ✔️ Day 19: Julia
-* Day 20: Nim
+* ✔️ Day 20: Nim
 * Day 21: Scala
 * Day 22: Scheme
 * Day 23: PHP
