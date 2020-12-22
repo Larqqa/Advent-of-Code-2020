@@ -22,8 +22,8 @@
 * ✔️ Day 18: Elisp
 * ✔️ Day 19: Julia
 * ✔️ Day 20: Nim
-* Day 21: Scala
+* ✔️ Day 21: Scala
 * Day 22: Scheme
 * Day 23: PHP
 * Day 24: Racket
-* Day 25: JavaScript
+* Day 25: Dart
