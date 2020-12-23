@@ -23,7 +23,7 @@
 * ✔️ Day 19: Julia
 * ✔️ Day 20: Nim
 * ✔️ Day 21: Scala
-* Day 22: Scheme
-* Day 23: PHP
+* ✔️ Day 22: PHP
+* Day 23: Scheme
 * Day 24: Racket
 * Day 25: Dart
