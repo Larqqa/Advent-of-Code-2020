@@ -24,6 +24,6 @@
 * ✔️ Day 20: Nim
 * ✔️ Day 21: Scala
 * ✔️ Day 22: PHP
-* Day 23: Scheme
+* ✔️ Day 23: Dart
 * Day 24: Racket
-* Day 25: Dart
+* Day 25: F#
