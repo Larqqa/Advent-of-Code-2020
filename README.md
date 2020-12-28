@@ -26,4 +26,4 @@
 * ✔️ Day 22: PHP
 * ✔️ Day 23: Dart
 * ✔️ Day 24: F#
-* Day 25: ReasonML
+* ✔️ Day 25: ReasonML

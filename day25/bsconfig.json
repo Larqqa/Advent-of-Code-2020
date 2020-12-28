@@ -1,0 +1,21 @@
+{
+  "name": "day25",
+  "version": "0.1.0",
+  "sources": {
+    "dir" : "src",
+    "subdirs" : true
+  },
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": true
+  },
+  "suffix": ".bs.js",
+  "bs-dependencies": [],
+  "bs-dev-dependencies": [],
+  "warnings": {
+    "number": "-45-44",
+    "error": "+101"
+  },
+  "namespace": true,
+  "refmt": 3
+}
